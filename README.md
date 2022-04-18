@@ -1,4 +1,4 @@
-# vue-finance
+# vue-finance mobile web 
 
 ## Project setup
 ```
