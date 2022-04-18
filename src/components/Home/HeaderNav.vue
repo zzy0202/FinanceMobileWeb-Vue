@@ -1,6 +1,6 @@
 <template>
   <div class="headerNav">
-    <van-nav-bar >
+    <van-nav-bar :fixed="true">
       <template #left>
         <span class="iconfont icon-gerenzhongxin"></span>
       </template>

@@ -18,4 +18,7 @@
   padding: 0;
   margin: 0;
 }
+html {
+  background-color: rgb(247,248,250);
+}
 </style>
