@@ -1,15 +1,26 @@
 <template>
   <div id="app">
-    <Home></Home>
+    <keep-alive>
+      <router-view>
+      </router-view>
+    </keep-alive>
+    <BottomNav></BottomNav>
   </div>
 </template>
 
 <script>
   import Home from "@/views/Home";
+  import BottomNav from "@/components/Home/BottomNav";
+  import Stock from "@/views/Stock";
   export default {
     name:"App",
+    data() {
+      return {
+        active:null,
+      }
+    },
     components:{
-      Home,
+      Home,BottomNav,Stock
     }
   }
 </script>
@@ -19,6 +30,6 @@
   margin: 0;
 }
 html {
-  background-color: rgb(247,248,250);
+  background-color: rgb(238, 238, 239);
 }
 </style>

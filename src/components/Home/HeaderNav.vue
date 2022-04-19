@@ -24,7 +24,18 @@ export default {
   data() {
     return {
       value:"",
+      show:false,
     }
+  },
+  mounted() {
+    window.addEventListener('scroll',()=>{
+      if(document.documentElement.scrollTop<40) {
+        this.show = false;
+      }
+      else {
+        this.show = true;
+      }
+    })
   }
 }
 </script>

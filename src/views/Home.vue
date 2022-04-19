@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <!--    这个是Header导航栏-->
-    <HeaderNav></HeaderNav>
+    <div style="margin-bottom: 0.3rem;">
+      <HeaderNav></HeaderNav>
+    </div>
     <!--    这个是导航列表-->
     <NaviList></NaviList>
     <!--    这是热度内容-->

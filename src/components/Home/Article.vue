@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <van-icon name="back-top" class="back" size="0.3rem" @click="returnTop"/>
-    <div class="articleUnit" v-for="(item,i) in articleArr" v-if="item!==undefined" :key="i">
+    <div class="articleUnit" @load="getArticleList" v-for="(item,i) in articleArr" v-if="item!==undefined" :key="i" @click="jump(item.original_status.id)">
       <div class="header">
         <img
             :src="item.original_status.user.photo_domain+item.original_status.user.profile_image_url.split(',')[0]"
@@ -11,7 +11,7 @@
           <div class="publishDate">{{ item.original_status.timeBefore }}</div>
         </div>
       </div>
-      <div class="content">
+      <div class="content" style="margin: 0 0.05rem 0 0.03rem">
         <p v-html="item.original_status.description"></p>
       </div>
       <div class="footer">
@@ -23,6 +23,8 @@
         <span>{{ item.original_status.reply_count }}</span>
       </div>
     </div>
+    <div class="bottom" v-if="loading">正在加载中</div>
+    <div class="bottom" v-if="end">你到了世界的尽头</div>
   </div>
 </template>
 
@@ -35,54 +37,65 @@ export default {
     return {
       articleArr: [],
       page: 1,
+      end: false,
+      loading: false,
     }
   },
   methods: {
     async getArticleList() {
-      console.log('kskskks')
-      let res = await getArticle({page: this.page});
-      this.page++;
-      this.articleArr = this.articleArr.concat(res.items);
+      if (!this.end) {
+        this.loading = true;
+        let res = await getArticle({page: this.page});
+        if (res.result && res.result.indexOf('已加载完') !== -1) {
+          this.end = true;
+          this.loading = false;
+        }
+        this.page++;
+        this.articleArr = this.articleArr.concat(res.items);
+      }
     },
     returnTop() {
       cancelAnimationFrame(timer);
-      let speed = document.documentElement.scrollTop/60;
+      let speed = document.documentElement.scrollTop / 60;
       let timer = requestAnimationFrame(function fn() {
         var oTop = document.body.scrollTop || document.documentElement.scrollTop;
         if (oTop > 0) {
-          document.documentElement.scrollTop-=speed;
+          document.documentElement.scrollTop -= speed;
           timer = requestAnimationFrame(fn);
         } else {
           cancelAnimationFrame(timer);
         }
       });
+    },
+    debounce(fn, delay) {
+      let timer = null;
+      return function () {
+        if (!timer) {
+          timer = setTimeout(fn, delay);
+        } else {
+          clearTimeout(timer);
+          timer = setTimeout(fn, delay);
+        }
+      }
+    },
+    show() {
+      console.log('loading');
+    },
+    jump(articleId) {
+      this.$router.push({path:'/article/'+articleId});
     }
   },
   mounted() {
     this.getArticleList();
     let timer = null;
-    window.addEventListener('scroll', () => {
-      if (!timer) {
-        timer = setTimeout(() => {
-          let scrollTop = document.documentElement.scrollTop;
-          let scrollHeight = document.documentElement.scrollHeight;
-          let innerHeight = window.innerHeight;
-          if (scrollHeight - scrollTop - innerHeight < 100) {
-            this.getArticleList();
-          }
-        }, 250);
-      } else {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          let scrollTop = document.documentElement.scrollTop;
-          let scrollHeight = document.documentElement.scrollHeight;
-          let innerHeight = window.innerHeight;
-          if (scrollHeight - scrollTop - innerHeight < 100) {
-            this.getArticleList();
-          }
-        }, 250);
+    window.addEventListener('scroll', this.debounce(() => {
+      let scrollTop = document.documentElement.scrollTop;
+      let scrollHeight = document.documentElement.scrollHeight;
+      let innerHeight = window.innerHeight;
+      if (scrollHeight - scrollTop - innerHeight < 50) {
+        this.getArticleList();
       }
-    })
+    }, 250));
   }
 }
 </script>
@@ -95,10 +108,12 @@ export default {
   border-radius: 0.25rem;
   background-color: #f8f6f6;
 }
+
 .articleUnit {
   span, div {
     font-size: 0.15rem;
   }
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,11 +152,21 @@ export default {
 
   .footer {
     margin: 0.06rem 0 0.12rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
 
     span {
-      margin: 0 0.2rem 0 0.08rem;
+      margin: 0 0.2rem 0 0.07rem;
       font-size: 0.12rem;
     }
   }
+}
+
+.bottom {
+  font-size: 0.12rem;
+  color: darkgray;
+  text-align: center;
+  margin-bottom: 0.1rem;
 }
 </style>
