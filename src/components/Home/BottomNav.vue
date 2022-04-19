@@ -16,15 +16,20 @@ export default {
     return {
       active:null,
       show:true,
-      showNavPath : ['/','/me','/stock','/fund'],
+      showNavPath : ['/','/stock','/fund','/me'],
     }
   },
   watch:{
     $route:{
       handler(newRoute,OldRoute) {
         this.show = this.showNavPath.indexOf(newRoute.path) !== -1;
-      }
-    }
+        if(this.show) {
+          this.active = this.showNavPath.indexOf(newRoute.path);
+          console.log(this.active)
+        }
+      },
+      immediate:true,
+    },
   }
 }
 </script>

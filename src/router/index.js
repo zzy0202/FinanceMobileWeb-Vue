@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import ArticlePage from "@/views/ArticlePage";
 import Stock from "@/views/Stock";
+import Fund from "@/views/Fund";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
 		path: '/stock',
 		name: 'Stock',
 		component: Stock,
+	},
+	{
+		path:'/fund',
+		name:'Fund',
+		component: Fund,
 	}
 ]
 

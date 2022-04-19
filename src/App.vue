@@ -30,6 +30,6 @@
   margin: 0;
 }
 html {
-  background-color: rgb(238, 238, 239);
+  background-color: rgb(245, 247, 249);
 }
 </style>
