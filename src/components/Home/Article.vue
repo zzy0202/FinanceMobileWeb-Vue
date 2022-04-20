@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <van-icon name="back-top" class="back" size="0.3rem" @click="returnTop"/>
-    <div class="articleUnit" @load="getArticleList" v-for="(item,i) in articleArr" v-if="item!==undefined" :key="i" @click="jump(item.original_status.id)">
+    <div class="articleUnit" @load="getArticleList" v-for="(item,i) in articleArr" v-if="item!==undefined" :key="i" @click="jump(item.original_status.id,item)">
       <div class="header">
         <img
             :src="item.original_status.user.photo_domain+item.original_status.user.profile_image_url.split(',')[0]"
@@ -81,8 +81,8 @@ export default {
     show() {
       console.log('loading');
     },
-    jump(articleId) {
-      this.$router.push({path:'/article/'+articleId});
+    jump(articleId,params) {
+      this.$router.push({name:'Article',params});
     }
   },
   mounted() {
@@ -117,18 +117,16 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 3.6rem;
+  width: 3.68rem;
   border-radius: 0.1rem;
   margin: 0.1rem auto;
   background-color: white;
   box-shadow: 0.01rem 0.01rem 0.01rem #dcdcdc;
-
   .header {
-    margin: 0.12rem 0 0.06rem;
+    margin: 0.12rem 0 0.06rem 0.05rem;
     display: flex;
     justify-content: start;
     align-items: center;
-
     img {
       width: 0.3rem;
       height: 0.3rem;

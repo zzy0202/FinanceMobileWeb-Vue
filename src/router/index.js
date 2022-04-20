@@ -16,6 +16,7 @@ const routes = [
 	{
 		path: '/article/:id',
 		name: 'Article',
+		props: route => ({ article: route.params }),
 		component: ArticlePage
 	},
 	{

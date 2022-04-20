@@ -5,7 +5,7 @@
         <van-image :src="item.icon_url" fit="fill"/>
       </van-swipe-item>
     </van-swipe>
-    <van-tabs type="card">
+    <van-tabs type="card" v-if="loadingEnd">
       <van-tab :title="item.tab_name" v-for="item in tabListArr">
         <div class="content">
           <div class="title">{{ item.comment }}</div>
@@ -27,6 +27,9 @@
         </div>
       </van-tab>
     </van-tabs>
+    <div class="loading" style="margin: 0 auto" v-if="!loadingEnd">
+      <van-loading style="text-align:center;"/>
+    </div>
   </div>
 </template>
 
@@ -39,6 +42,7 @@ export default {
     return {
       bannerArr: [],
       tabListArr: [],
+      loadingEnd:false,
     }
   },
   async mounted() {
@@ -48,6 +52,7 @@ export default {
     getFundTabList().then(res => {
       this.tabListArr = res.data.tab;
       console.log(this.tabListArr);
+      this.loadingEnd = true;
     });
   }
 }

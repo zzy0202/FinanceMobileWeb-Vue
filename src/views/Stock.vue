@@ -18,6 +18,9 @@
         </div>
       </van-tab>
     </van-tabs>
+    <div class="loading" style="margin: 0 auto" v-if="!loadingEnd">
+      <van-loading style="text-align:center;"/>
+    </div>
   </div>
 </template>
 
@@ -31,11 +34,13 @@ export default {
       active: null,
       stockRanking: [],
       stockType: ['全球', '沪深', '港股', '美股'],
+      loadingEnd:false,
     }
   },
   async mounted() {
     for (let i = 0; i < 4; i++) {
       let res = await getStockRank({type: i});
+      this.loadingEnd = true;
       this.stockRanking[i] = res.data.items;
       this.$forceUpdate();
     }
