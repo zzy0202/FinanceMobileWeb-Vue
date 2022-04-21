@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import ArticlePage from "@/views/ArticlePage";
 import Stock from "@/views/Stock";
 import Fund from "@/views/Fund";
+import Me from "@/views/Me";
+import Login from "@/views/Login";
 
 Vue.use(VueRouter)
 
@@ -28,11 +30,21 @@ const routes = [
 		path:'/fund',
 		name:'Fund',
 		component: Fund,
+	},
+	{
+		path: '/me',
+		name: 'Me',
+		component: Me,
+	},
+	{
+		path: '/login',
+		name:'Login',
+		component: Login,
 	}
 ]
 
 const router = new VueRouter({
-	mode: 'history',
+	mode: 'hash',
 	base: process.env.BASE_URL,
 	routes
 })

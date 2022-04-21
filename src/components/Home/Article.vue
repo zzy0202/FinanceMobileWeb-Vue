@@ -1,6 +1,6 @@
 <template>
   <div class="article">
-    <van-icon name="back-top" class="back" size="0.3rem" @click="returnTop"/>
+    <van-icon name="back-top" class="back" size="0.32rem" @click="returnTop"/>
     <div class="articleUnit" @load="getArticleList" v-for="(item,i) in articleArr" v-if="item!==undefined" :key="i" @click="jump(item.original_status.id,item)">
       <div class="header">
         <img
@@ -15,7 +15,7 @@
         <p v-html="item.original_status.description"></p>
       </div>
       <div class="footer">
-        <van-icon name="share-o" size="0.2rem"/>
+        <van-icon name="share-o" size="0.2rem" style="margin-left: 0.05rem;"/>
         <span>{{ item.original_status.retweet_count }}</span>
         <van-icon name="good-job-o" size="0.2rem"/>
         <span>{{ item.original_status.like_count }}</span>

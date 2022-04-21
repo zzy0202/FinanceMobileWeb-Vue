@@ -8,7 +8,8 @@ import 'vant/lib/index.css';
 import '@/assets/iconfont.css';
 
 Vue.use(Vant);
-
+const bus = new Vue();
+Vue.prototype.$bus = bus;
 Vue.config.productionTip = false
 
 new Vue({

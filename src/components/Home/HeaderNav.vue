@@ -1,5 +1,5 @@
 <template>
-  <div class="headerNav">
+  <div class="headerNav" >
     <van-nav-bar :fixed="true">
       <template #left>
         <span class="iconfont icon-gerenzhongxin"></span>

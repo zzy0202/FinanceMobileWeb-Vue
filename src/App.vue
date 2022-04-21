@@ -12,6 +12,8 @@
   import Home from "@/views/Home";
   import BottomNav from "@/components/Home/BottomNav";
   import Stock from "@/views/Stock";
+  import Me from "@/views/Me";
+  import Login from "@/views/Login";
   export default {
     name:"App",
     data() {
@@ -20,7 +22,7 @@
       }
     },
     components:{
-      Home,BottomNav,Stock
+      Home,BottomNav,Stock,Me,Login,
     }
   }
 </script>

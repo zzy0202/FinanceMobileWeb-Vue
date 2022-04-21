@@ -25,7 +25,6 @@ export default {
         this.show = this.showNavPath.indexOf(newRoute.path) !== -1;
         if(this.show) {
           this.active = this.showNavPath.indexOf(newRoute.path);
-          console.log(this.active)
         }
       },
       immediate:true,
