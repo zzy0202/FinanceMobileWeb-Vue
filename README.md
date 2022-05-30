@@ -1,4 +1,5 @@
 # vue-finance mobile web 
+这是一个基于Vue2开发的移动端财经网站
 
 ## Project setup
 ```
